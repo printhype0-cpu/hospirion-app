@@ -1,4 +1,8 @@
 @echo off
+echo Installing dependencies locally...
+call npm install
+
+echo.
 echo Installing EAS CLI globally just to be safe...
 call npm install -g eas-cli
 

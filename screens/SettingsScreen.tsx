@@ -33,8 +33,8 @@ export default function SettingsScreen({ navigation }: { navigation: any }) {
       </View>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <View style={styles.profileCard}>
-          <View style={styles.profileAvatar}><Text style={styles.profileAvatarText}>{user?.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</Text></View>
-          <View style={styles.profileInfo}><Text style={styles.profileName}>{user?.name}</Text><Text style={styles.profileEmail}>{user?.email}</Text><Text style={styles.profileRole}>{user?.role.charAt(0).toUpperCase() + user?.role.slice(1)}</Text></View>
+          <View style={styles.profileAvatar}><Text style={styles.profileAvatarText}>{user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2) || ''}</Text></View>
+          <View style={styles.profileInfo}><Text style={styles.profileName}>{user?.name}</Text><Text style={styles.profileEmail}>{user?.email}</Text><Text style={styles.profileRole}>{user?.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : ''}</Text></View>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Account</Text>
