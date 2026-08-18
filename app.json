@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "Agon Preview",
-    "slug": "agon-preview",
+    "name": "Hospirion",
+    "slug": "hospirion",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.solution4u.agonpreview",
+      "bundleIdentifier": "com.hospirion.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -21,7 +21,7 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.solution4u.agonpreview"
+      "package": "com.hospirion.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
