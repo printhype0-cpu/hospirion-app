@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 import { useTheme, ThemeProvider, FontSize, Spacing, FontWeight } from './lib/theme';
@@ -120,7 +120,7 @@ function MoreScreen({ navigation }: { navigation: any }) {
   const items = moreItems[user.role];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>More</Text>
       </View>
@@ -143,7 +143,7 @@ function MoreScreen({ navigation }: { navigation: any }) {
         <Ionicons name="log-out-outline" size={20} color={colors.danger} />
         <Text style={styles.logoutText}>Sign Out</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -176,8 +176,6 @@ function MainTabs() {
           borderTopWidth: 1,
           borderTopColor: colors.tabBarBorder,
           paddingTop: 8,
-          paddingBottom: 8,
-          height: 60,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: FontWeight.semibold },
       }}
