@@ -27,7 +27,7 @@ export default function PharmacyScreen({ navigation }: { navigation: any }) {
         </View>
         <View style={styles.cardDetails}>
           <View style={styles.detailItem}><Text style={styles.detailLabel}>Stock</Text><Text style={[styles.detailValue, { color: lowStock ? colors.danger : colors.success }]}>{item.stock}</Text></View>
-          <View style={styles.detailItem}><Text style={styles.detailLabel}>Price</Text><Text style={styles.detailValue}>${item.price.toFixed(2)}</Text></View>
+          <View style={styles.detailItem}><Text style={styles.detailLabel}>Price</Text><Text style={styles.detailValue}>₹{item.price.toFixed(2)}</Text></View>
         </View>
         {lowStock && <View style={styles.lowStockBanner}><Ionicons name="warning" size={14} color={colors.danger} /><Text style={styles.lowStockText}>Low Stock Alert</Text></View>}
       </View>

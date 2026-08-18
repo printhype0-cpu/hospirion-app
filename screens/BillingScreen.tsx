@@ -31,7 +31,7 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
           <Badge text={badge.text} variant={badge.variant} />
         </View>
         <View style={styles.cardMiddle}><Text style={styles.dateText}>{item.date}</Text><Text style={styles.itemsCount}>{item.items.length} items</Text></View>
-        <View style={styles.cardBottom}><Text style={styles.totalLabel}>Total</Text><Text style={styles.totalAmount}>${item.total.toFixed(2)}</Text></View>
+        <View style={styles.cardBottom}><Text style={styles.totalLabel}>Total</Text><Text style={styles.totalAmount}>₹{item.total.toFixed(2)}</Text></View>
       </TouchableOpacity>
     );
   };
@@ -44,9 +44,9 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
         <TouchableOpacity><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.summaryRow}>
-        <View style={styles.summaryCard}><Ionicons name="trending-up" size={20} color={colors.success} /><Text style={styles.summaryValue}>${totalRevenue.toFixed(0)}</Text><Text style={styles.summaryLabel}>Total</Text></View>
-        <View style={styles.summaryCard}><Ionicons name="checkmark-circle" size={20} color={colors.primary} /><Text style={styles.summaryValue}>${paidAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Collected</Text></View>
-        <View style={styles.summaryCard}><Ionicons name="time" size={20} color={colors.warning} /><Text style={styles.summaryValue}>${pendingAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Pending</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="trending-up" size={20} color={colors.success} /><Text style={styles.summaryValue}>₹{totalRevenue.toFixed(0)}</Text><Text style={styles.summaryLabel}>Total</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="checkmark-circle" size={20} color={colors.primary} /><Text style={styles.summaryValue}>₹{paidAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Collected</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="time" size={20} color={colors.warning} /><Text style={styles.summaryValue}>₹{pendingAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Pending</Text></View>
       </View>
       <FlatList data={mockBills} renderItem={renderBill} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
     </SafeAreaView>

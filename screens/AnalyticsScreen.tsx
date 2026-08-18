@@ -40,7 +40,7 @@ export default function AnalyticsScreen({ navigation }: { navigation: any }) {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <View style={styles.summaryCard}>
           <View style={styles.summaryRow}>
-            <View style={styles.summaryItem}><Text style={styles.summaryValue}>$125K</Text><Text style={styles.summaryLabel}>Revenue</Text><View style={styles.changeRow}><Ionicons name="trending-up" size={12} color={colors.success} /><Text style={[styles.changeText, { color: colors.success }]}>+15.8%</Text></View></View>
+            <View style={styles.summaryItem}><Text style={styles.summaryValue}>₹125K</Text><Text style={styles.summaryLabel}>Revenue</Text><View style={styles.changeRow}><Ionicons name="trending-up" size={12} color={colors.success} /><Text style={[styles.changeText, { color: colors.success }]}>+15.8%</Text></View></View>
             <View style={styles.summaryDivider} />
             <View style={styles.summaryItem}><Text style={styles.summaryValue}>560</Text><Text style={styles.summaryLabel}>Patients</Text><View style={styles.changeRow}><Ionicons name="trending-up" size={12} color={colors.success} /><Text style={[styles.changeText, { color: colors.success }]}>+5.7%</Text></View></View>
             <View style={styles.summaryDivider} />
@@ -53,7 +53,7 @@ export default function AnalyticsScreen({ navigation }: { navigation: any }) {
             <View style={styles.barChart}>
               {monthlyData.map((d, i) => (
                 <View key={i} style={styles.barColumn}>
-                  <Text style={styles.barValue}>${(d.revenue / 1000).toFixed(0)}K</Text>
+                  <Text style={styles.barValue}>₹{(d.revenue / 1000).toFixed(0)}K</Text>
                   <View style={[styles.bar, { height: (d.revenue / maxRevenue) * 120, backgroundColor: i === monthlyData.length - 1 ? colors.primary : colors.primary + '60' }]} />
                   <Text style={styles.barLabel}>{d.month}</Text>
                 </View>
