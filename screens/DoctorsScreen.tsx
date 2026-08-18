@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockDoctors } from '../lib/data';
@@ -14,7 +14,7 @@ export default function DoctorsScreen({ navigation }: { navigation: any }) {
   const filtered = mockDoctors.filter(d => d.name.toLowerCase().includes(search.toLowerCase()) || d.specialization.toLowerCase().includes(search.toLowerCase()));
 
   const renderDoctor = ({ item }: { item: typeof mockDoctors[0] }) => (
-    <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+    <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
       <View style={styles.avatar}><Text style={styles.avatarText}>{item.name.split(' ').slice(1).map(n => n[0]).join('')}</Text></View>
       <View style={styles.cardContent}>
         <View style={styles.cardTopRow}>

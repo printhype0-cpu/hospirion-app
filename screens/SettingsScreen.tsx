@@ -10,7 +10,7 @@ function SettingItem({ icon, label, subtitle, color, onPress, hasToggle, toggleV
   const styles = createStyles(colors);
   
   return (
-    <TouchableOpacity style={styles.settingItem} onPress={hasToggle ? undefined : onPress} activeOpacity={hasToggle ? 1 : 0.7}>
+    <TouchableOpacity style={styles.settingItem} onPress={hasToggle ? undefined : (onPress || (() => Alert.alert('Coming Soon', 'This setting will be adjustable in the next update!')))} activeOpacity={hasToggle ? 1 : 0.7}>
       <View style={[styles.settingIcon, { backgroundColor: color + '20' }]}><Ionicons name={icon} size={20} color={color} /></View>
       <View style={styles.settingInfo}><Text style={[styles.settingLabel, danger && { color: colors.danger }]}>{label}</Text>{subtitle && <Text style={styles.settingSubtitle}>{subtitle}</Text>}</View>
       {hasToggle ? <Switch value={toggleValue} onValueChange={onToggle} trackColor={{ true: colors.primary }} thumbColor={colors.white} /> : <Ionicons name="chevron-forward" size={20} color={colors.gray400} />}

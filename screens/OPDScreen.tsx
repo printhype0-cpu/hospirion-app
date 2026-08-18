@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockOPDQueue } from '../lib/data';
@@ -46,7 +46,7 @@ export default function OPDScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>OPD Queue</Text>
-        <TouchableOpacity><Ionicons name="person-add" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="person-add" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.statsRow}>
         <View style={[styles.statCard, { borderLeftColor: colors.warning, borderLeftWidth: 3 }]}><Text style={[styles.statValue, { color: colors.warning }]}>{waitingCount}</Text><Text style={styles.statLabel}>Waiting</Text></View>

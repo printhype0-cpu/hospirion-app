@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockConversations, mockMessages } from '../lib/data';
@@ -66,7 +66,7 @@ export default function MessagesScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Messages</Text>
-        <TouchableOpacity><Ionicons name="create-outline" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="create-outline" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search messages..." /></View>
       <FlatList data={filteredConversations} renderItem={renderConversation} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />

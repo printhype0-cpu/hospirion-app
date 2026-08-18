@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import {  View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions , Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
@@ -67,7 +67,7 @@ export default function DashboardScreen({ navigation }: { navigation: any }) {
             <Text style={styles.userName}>{user.name}</Text>
             {user.department && <Text style={styles.department}>{user.department}</Text>}
           </View>
-          <TouchableOpacity style={styles.notificationBtn}>
+          <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.notificationBtn}>
             <Ionicons name="notifications" size={24} color={colors.textSecondary} />
             <View style={styles.notifBadge}>
               <Text style={styles.notifBadgeText}>3</Text>
@@ -111,7 +111,7 @@ export default function DashboardScreen({ navigation }: { navigation: any }) {
           {todayAppointments.map((apt) => {
             const badge = getStatusBadge(apt.status);
             return (
-              <TouchableOpacity key={apt.id} style={styles.aptCard} activeOpacity={0.7}>
+              <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} key={apt.id} style={styles.aptCard} activeOpacity={0.7}>
                 <View style={styles.aptTimeCol}>
                   <Text style={styles.aptTime}>{apt.time}</Text>
                 </View>

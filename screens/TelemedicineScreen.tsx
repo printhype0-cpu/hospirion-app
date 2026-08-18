@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity, Modal , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockAppointments } from '../lib/data';
@@ -25,7 +25,7 @@ export default function TelemedicineScreen({ navigation }: { navigation: any }) 
       </View>
       <View style={styles.cardActions}>
         <TouchableOpacity style={[styles.actionBtn, styles.joinBtn]} onPress={() => setInCall(true)}><Ionicons name="videocam" size={18} color={colors.white} /><Text style={styles.joinBtnText}>Join Call</Text></TouchableOpacity>
-        <TouchableOpacity style={[styles.actionBtn, styles.chatBtn]}><Ionicons name="chatbubble-outline" size={18} color={colors.primary} /><Text style={styles.chatBtnText}>Chat</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={[styles.actionBtn, styles.chatBtn]}><Ionicons name="chatbubble-outline" size={18} color={colors.primary} /><Text style={styles.chatBtnText}>Chat</Text></TouchableOpacity>
       </View>
     </View>
   );
@@ -44,8 +44,8 @@ export default function TelemedicineScreen({ navigation }: { navigation: any }) 
           <View style={styles.callScreen}>
             <View style={styles.callerInfo}><View style={styles.callerAvatar}><Ionicons name="person" size={48} color={colors.white} /></View><Text style={styles.callerName}>Maria Garcia</Text><Text style={styles.callStatus}>Connected • 05:23</Text></View>
             <View style={styles.callControls}>
-              <TouchableOpacity style={styles.controlBtn}><Ionicons name="mic-off" size={24} color={colors.white} /><Text style={styles.controlLabel}>Mute</Text></TouchableOpacity>
-              <TouchableOpacity style={styles.controlBtn}><Ionicons name="videocam-off" size={24} color={colors.white} /><Text style={styles.controlLabel}>Camera</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.controlBtn}><Ionicons name="mic-off" size={24} color={colors.white} /><Text style={styles.controlLabel}>Mute</Text></TouchableOpacity>
+              <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.controlBtn}><Ionicons name="videocam-off" size={24} color={colors.white} /><Text style={styles.controlLabel}>Camera</Text></TouchableOpacity>
               <TouchableOpacity style={[styles.controlBtn, styles.endCallBtn]} onPress={() => setInCall(false)}><Ionicons name="call" size={24} color={colors.white} style={{ transform: [{ rotate: '135deg' }] }} /><Text style={styles.controlLabel}>End</Text></TouchableOpacity>
             </View>
           </View>

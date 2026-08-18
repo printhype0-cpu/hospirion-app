@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, ScrollView , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockAppointments } from '../lib/data';
@@ -65,7 +65,7 @@ export default function AppointmentsScreen({ navigation }: { navigation: any }) 
           <Ionicons name="chevron-back" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Appointments</Text>
-        <TouchableOpacity><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
 
       <View style={styles.searchSection}>

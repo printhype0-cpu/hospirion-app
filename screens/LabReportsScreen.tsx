@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockLabReports } from '../lib/data';
@@ -25,7 +25,7 @@ export default function LabReportsScreen({ navigation }: { navigation: any }) {
   const renderReport = ({ item }: { item: typeof mockLabReports[0] }) => {
     const statusBadge = getStatusBadge(item.status);
     return (
-      <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
         <View style={styles.cardContent}>
           <View style={styles.cardTopRow}>
             <Text style={styles.testName} numberOfLines={1}>{item.testName}</Text>

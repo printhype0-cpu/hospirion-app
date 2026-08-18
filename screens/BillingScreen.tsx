@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
 import { mockBills } from '../lib/data';
@@ -25,7 +25,7 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
   const renderBill = ({ item }: { item: typeof mockBills[0] }) => {
     const badge = getStatusBadge(item.status);
     return (
-      <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
         <View style={styles.cardTop}>
           <View><Text style={styles.billId}>{item.id}</Text><Text style={styles.patientName}>{item.patientName}</Text></View>
           <Badge text={badge.text} variant={badge.variant} />
@@ -41,7 +41,7 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Billing</Text>
-        <TouchableOpacity><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.summaryRow}>
         <View style={styles.summaryCard}><Ionicons name="trending-up" size={20} color={colors.success} /><Text style={styles.summaryValue}>₹{totalRevenue.toFixed(0)}</Text><Text style={styles.summaryLabel}>Total</Text></View>

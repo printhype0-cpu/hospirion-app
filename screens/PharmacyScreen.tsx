@@ -39,7 +39,7 @@ export default function PharmacyScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Pharmacy</Text>
-        <TouchableOpacity><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search medicines..." /></View>
       <FlatList data={filtered} renderItem={renderItem} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
