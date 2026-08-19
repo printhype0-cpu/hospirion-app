@@ -1,49 +1,69 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
-import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockShifts } from '../lib/data';
+import { useTheme, Spacing, FontSize, FontWeight, BorderRadius } from '../lib/theme';
 import Badge from '../components/Badge';
 
 export default function StaffShiftsScreen({ navigation }: { navigation: any }) {
   const { colors } = useTheme();
   const styles = createStyles(colors);
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'active': return { text: 'Active', variant: 'success' as const };
-      case 'scheduled': return { text: 'Scheduled', variant: 'info' as const };
-      case 'completed': return { text: 'Completed', variant: 'default' as const };
-      default: return { text: status, variant: 'default' as const };
-    }
-  };
-
-  const renderItem = ({ item }: { item: typeof mockShifts[0] }) => {
-    const badge = getStatusBadge(item.status);
-    return (
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <View style={styles.staffIcon}><Ionicons name={item.staffRole === 'Doctor' ? 'medkit' : 'heart-pulse'} size={20} color={item.staffRole === 'Doctor' ? colors.secondary : '#E11D48'} /></View>
-          <View style={styles.cardHeaderInfo}><Text style={styles.staffName}>{item.staffName}</Text><Text style={styles.staffRole}>{item.staffRole} • {item.department}</Text></View>
-          <Badge text={badge.text} variant={badge.variant} />
-        </View>
-        <View style={styles.shiftDetails}>
-          <View style={styles.shiftDetail}><Ionicons name="calendar-outline" size={14} color={colors.gray500} /><Text style={styles.shiftDetailText}>{item.date}</Text></View>
-          <View style={styles.shiftDetail}><Ionicons name="time-outline" size={14} color={colors.gray500} /><Text style={styles.shiftDetailText}>{item.startTime} - {item.endTime}</Text></View>
-        </View>
-      </View>
-    );
-  };
+  const shifts = [
+    { id: '1', name: 'Dr. Sarah Jenkins', role: 'Cardiologist', shift: 'Morning', time: '08:00 AM - 04:00 PM', status: 'active' },
+    { id: '2', name: 'Nurse Emma Watson', role: 'Head Nurse', shift: 'Morning', time: '07:00 AM - 03:00 PM', status: 'active' },
+    { id: '3', name: 'Dr. Michael Chen', role: 'Neurologist', shift: 'Evening', time: '04:00 PM - 12:00 AM', status: 'upcoming' },
+    { id: '4', name: 'Nurse John Doe', role: 'ICU Nurse', shift: 'Evening', time: '03:00 PM - 11:00 PM', status: 'upcoming' },
+    { id: '5', name: 'Dr. Robert Smith', role: 'ER Physician', shift: 'Night', time: '12:00 AM - 08:00 AM', status: 'off' },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
-        <Text style={styles.headerTitle}>Staff & Shifts</Text>
-        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
+          <Ionicons name="chevron-back" size={24} color={colors.text} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Staff Shifts</Text>
+        <TouchableOpacity onPress={() => {}}><Ionicons name="calendar" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
-      <FlatList data={mockShifts} renderItem={renderItem} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
+
+      <View style={styles.dateSelector}>
+        <Text style={styles.dateText}>Today, Oct 24</Text>
+        <Ionicons name="chevron-down" size={16} color={colors.text} />
+      </View>
+
+      <ScrollView contentContainerStyle={styles.content}>
+        {shifts.map(shift => (
+          <View key={shift.id} style={styles.card}>
+            <View style={styles.cardHeader}>
+              <View style={styles.nameRow}>
+                <View style={styles.avatar}>
+                  <Text style={styles.avatarText}>{shift.name.split(' ').map(n => n[0]).join('').substring(0,2)}</Text>
+                </View>
+                <View>
+                  <Text style={styles.staffName}>{shift.name}</Text>
+                  <Text style={styles.staffRole}>{shift.role}</Text>
+                </View>
+              </View>
+              <Badge 
+                text={shift.status === 'active' ? 'On Duty' : shift.status === 'upcoming' ? 'Upcoming' : 'Off Duty'} 
+                variant={shift.status === 'active' ? 'success' : shift.status === 'upcoming' ? 'info' : 'default'} 
+              />
+            </View>
+            
+            <View style={styles.shiftDetails}>
+              <View style={styles.shiftInfo}>
+                <Ionicons name="sunny-outline" size={16} color={colors.textSecondary} />
+                <Text style={styles.shiftText}>{shift.shift} Shift</Text>
+              </View>
+              <View style={styles.shiftInfo}>
+                <Ionicons name="time-outline" size={16} color={colors.textSecondary} />
+                <Text style={styles.shiftText}>{shift.time}</Text>
+              </View>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -51,16 +71,19 @@ export default function StaffShiftsScreen({ navigation }: { navigation: any }) {
 const createStyles = (colors: any) => StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: Spacing.lg, paddingVertical: Spacing.md },
-  backBtn: { padding: Spacing.xs, width: 40 },
+  backBtn: { padding: Spacing.xs },
   headerTitle: { fontSize: FontSize.xl, fontWeight: FontWeight.bold, color: colors.text },
-  list: { padding: Spacing.xl, paddingTop: 0 },
-  card: { backgroundColor: colors.surface, padding: Spacing.lg, borderRadius: BorderRadius.lg, marginBottom: Spacing.md, borderWidth: 1, borderColor: colors.cardBorder, ...Shadows.sm },
-  cardHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: Spacing.md },
-  staffIcon: { width: 44, height: 44, borderRadius: BorderRadius.md, backgroundColor: colors.gray100, alignItems: 'center', justifyContent: 'center', marginRight: Spacing.md },
-  cardHeaderInfo: { flex: 1 },
+  dateSelector: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: Spacing.sm, backgroundColor: colors.surface, borderBottomWidth: 1, borderBottomColor: colors.border },
+  dateText: { fontSize: FontSize.md, fontWeight: FontWeight.semibold, color: colors.text, marginRight: 4 },
+  content: { padding: Spacing.lg },
+  card: { backgroundColor: colors.surface, padding: Spacing.lg, borderRadius: BorderRadius.lg, marginBottom: Spacing.md, borderWidth: 1, borderColor: colors.cardBorder },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: Spacing.md },
+  nameRow: { flexDirection: 'row', alignItems: 'center' },
+  avatar: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primaryBg, alignItems: 'center', justifyContent: 'center', marginRight: Spacing.sm },
+  avatarText: { fontSize: FontSize.sm, fontWeight: FontWeight.bold, color: colors.primary },
   staffName: { fontSize: FontSize.md, fontWeight: FontWeight.semibold, color: colors.text },
-  staffRole: { fontSize: FontSize.sm, color: colors.textSecondary, marginTop: 2 },
-  shiftDetails: { flexDirection: 'row', gap: Spacing.lg, paddingTop: Spacing.md, borderTopWidth: 1, borderTopColor: colors.border },
-  shiftDetail: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  shiftDetailText: { fontSize: FontSize.sm, color: colors.gray600 },
+  staffRole: { fontSize: FontSize.sm, color: colors.textSecondary },
+  shiftDetails: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: Spacing.md, borderTopWidth: 1, borderTopColor: colors.border },
+  shiftInfo: { flexDirection: 'row', alignItems: 'center' },
+  shiftText: { fontSize: FontSize.sm, color: colors.textSecondary, marginLeft: 4 },
 });

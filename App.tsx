@@ -27,6 +27,16 @@ import StaffShiftsScreen from './screens/StaffShiftsScreen';
 import AIReceptionistScreen from './screens/AIReceptionistScreen';
 import AnalyticsScreen from './screens/AnalyticsScreen';
 import OPDScreen from './screens/OPDScreen';
+import PatientDetailScreen from './screens/PatientDetailScreen';
+import PharmacyDetailScreen from './screens/PharmacyDetailScreen';
+import AppointmentDetailScreen from './screens/AppointmentDetailScreen';
+import AddPatientScreen from './screens/AddPatientScreen';
+import AddPharmacyItemScreen from './screens/AddPharmacyItemScreen';
+import BookAppointmentScreen from './screens/BookAppointmentScreen';
+import DoctorDetailScreen from './screens/DoctorDetailScreen';
+import AddDoctorScreen from './screens/AddDoctorScreen';
+import LabReportDetailScreen from './screens/LabReportDetailScreen';
+import BillDetailScreen from './screens/BillDetailScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -221,6 +231,17 @@ function RootNavigator() {
           <Stack.Screen name="AIReceptionist" component={AIReceptionistScreen} options={{ animation: 'slide_from_right' }} />
           <Stack.Screen name="Analytics" component={AnalyticsScreen} options={{ animation: 'slide_from_right' }} />
           <Stack.Screen name="OPD" component={OPDScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="PatientDetail" component={PatientDetailScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="PharmacyDetail" component={PharmacyDetailScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="AppointmentDetail" component={AppointmentDetailScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="DoctorDetail" component={DoctorDetailScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="LabReportDetail" component={LabReportDetailScreen} options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="BillDetail" component={BillDetailScreen} options={{ animation: 'slide_from_right' }} />
+          
+          <Stack.Screen name="AddPatient" component={AddPatientScreen} options={{ presentation: 'modal' }} />
+          <Stack.Screen name="AddPharmacyItem" component={AddPharmacyItemScreen} options={{ presentation: 'modal' }} />
+          <Stack.Screen name="BookAppointment" component={BookAppointmentScreen} options={{ presentation: 'modal' }} />
+          <Stack.Screen name="AddDoctor" component={AddDoctorScreen} options={{ presentation: 'modal' }} />
         </>
       )}
     </Stack.Navigator>

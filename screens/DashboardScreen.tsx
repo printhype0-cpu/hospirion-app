@@ -34,6 +34,7 @@ const getQuickActions = (role: UserRole) => {
     { icon: 'flask' as const, label: 'Lab Reports', color: '#059669', screen: 'LabReports' },
     { icon: 'storefront' as const, label: 'Pharmacy', color: '#0891B2', screen: 'Pharmacy' },
     { icon: 'videocam' as const, label: 'Telemedicine', color: '#7C3AED', screen: 'Telemedicine' },
+    { icon: 'calendar-outline' as const, label: 'Staff Shifts', color: '#059669', screen: 'StaffShifts' },
   ];
   if (role === 'doctor') return [...base,
     { icon: 'list' as const, label: 'OPD Queue', color: '#D97706', screen: 'OPD' },
@@ -67,7 +68,7 @@ export default function DashboardScreen({ navigation }: { navigation: any }) {
             <Text style={styles.userName}>{user.name}</Text>
             {user.department && <Text style={styles.department}>{user.department}</Text>}
           </View>
-          <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.notificationBtn}>
+          <TouchableOpacity onPress={() => {}} style={styles.notificationBtn}>
             <Ionicons name="notifications" size={24} color={colors.textSecondary} />
             <View style={styles.notifBadge}>
               <Text style={styles.notifBadgeText}>3</Text>
@@ -111,7 +112,7 @@ export default function DashboardScreen({ navigation }: { navigation: any }) {
           {todayAppointments.map((apt) => {
             const badge = getStatusBadge(apt.status);
             return (
-              <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} key={apt.id} style={styles.aptCard} activeOpacity={0.7}>
+              <TouchableOpacity onPress={() => {}} key={apt.id} style={styles.aptCard} activeOpacity={0.7}>
                 <View style={styles.aptTimeCol}>
                   <Text style={styles.aptTime}>{apt.time}</Text>
                 </View>

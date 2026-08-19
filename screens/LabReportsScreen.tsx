@@ -1,9 +1,9 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockLabReports } from '../lib/data';
+import { useStore } from '../lib/store';
 import SearchBar from '../components/SearchBar';
 import Badge from '../components/Badge';
 
@@ -11,7 +11,9 @@ export default function LabReportsScreen({ navigation }: { navigation: any }) {
   const [search, setSearch] = useState('');
   const { colors } = useTheme();
   const styles = createStyles(colors);
-  const filtered = mockLabReports.filter(r => r.patientName.toLowerCase().includes(search.toLowerCase()) || r.testName.toLowerCase().includes(search.toLowerCase()));
+  
+  const labReports = useStore(state => state.labReports);
+  const filtered = labReports.filter(r => r.patientName.toLowerCase().includes(search.toLowerCase()) || r.testName.toLowerCase().includes(search.toLowerCase()));
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -22,10 +24,10 @@ export default function LabReportsScreen({ navigation }: { navigation: any }) {
     }
   };
 
-  const renderReport = ({ item }: { item: typeof mockLabReports[0] }) => {
+  const renderReport = ({ item }: { item: typeof labReports[0] }) => {
     const statusBadge = getStatusBadge(item.status);
     return (
-      <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => navigation.navigate('LabReportDetail', { report: item })} style={styles.card} activeOpacity={0.7}>
         <View style={styles.cardContent}>
           <View style={styles.cardTopRow}>
             <Text style={styles.testName} numberOfLines={1}>{item.testName}</Text>

@@ -2,13 +2,13 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Light Theme Colors
 const lightColors = {
-  primary: '#2563EB',
-  primaryLight: '#3B82F6',
-  primaryDark: '#1D4ED8',
-  primaryBg: '#EFF6FF',
-  secondary: '#0891B2',
-  secondaryLight: '#06B6D4',
-  secondaryBg: '#ECFEFF',
+  primary: '#0D9488', // Medical Teal
+  primaryLight: '#14B8A6',
+  primaryDark: '#0F766E',
+  primaryBg: '#F0FDFA',
+  secondary: '#1E40AF', // Professional Navy Blue
+  secondaryLight: '#2563EB',
+  secondaryBg: '#EFF6FF',
   accent: '#7C3AED',
   accentLight: '#8B5CF6',
   accentBg: '#F5F3FF',
@@ -21,9 +21,9 @@ const lightColors = {
   danger: '#DC2626',
   dangerLight: '#EF4444',
   dangerBg: '#FEF2F2',
-  info: '#2563EB',
-  infoLight: '#3B82F6',
-  infoBg: '#EFF6FF',
+  info: '#0EA5E9',
+  infoLight: '#38BDF8',
+  infoBg: '#F0F9FF',
   white: '#FFFFFF',
   black: '#0F172A',
   gray50: '#F8FAFC',
@@ -56,13 +56,13 @@ const lightColors = {
 
 // Dark Theme Colors
 const darkColors = {
-  primary: '#3B82F6',
-  primaryLight: '#60A5FA',
-  primaryDark: '#2563EB',
-  primaryBg: '#1E3A5F',
-  secondary: '#06B6D4',
-  secondaryLight: '#22D3EE',
-  secondaryBg: '#164E63',
+  primary: '#14B8A6', // Medical Teal
+  primaryLight: '#2DD4BF',
+  primaryDark: '#0D9488',
+  primaryBg: '#134E4A',
+  secondary: '#3B82F6', // Blue
+  secondaryLight: '#60A5FA',
+  secondaryBg: '#1E3A8A',
   accent: '#8B5CF6',
   accentLight: '#A78BFA',
   accentBg: '#2E1065',
@@ -75,9 +75,9 @@ const darkColors = {
   danger: '#EF4444',
   dangerLight: '#F87171',
   dangerBg: '#7F1D1D',
-  info: '#3B82F6',
-  infoLight: '#60A5FA',
-  infoBg: '#1E3A5F',
+  info: '#38BDF8',
+  infoLight: '#7DD3FC',
+  infoBg: '#0C4A6E',
   white: '#FFFFFF',
   black: '#0F172A',
   gray50: '#1E293B',

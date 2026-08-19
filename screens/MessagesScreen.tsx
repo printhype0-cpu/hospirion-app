@@ -66,7 +66,7 @@ export default function MessagesScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Messages</Text>
-        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="create-outline" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}><Ionicons name="create-outline" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search messages..." /></View>
       <FlatList data={filteredConversations} renderItem={renderConversation} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />

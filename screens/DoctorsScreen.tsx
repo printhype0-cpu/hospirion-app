@@ -1,9 +1,9 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockDoctors } from '../lib/data';
+import { useStore } from '../lib/store';
 import SearchBar from '../components/SearchBar';
 import Badge from '../components/Badge';
 
@@ -11,10 +11,12 @@ export default function DoctorsScreen({ navigation }: { navigation: any }) {
   const [search, setSearch] = useState('');
   const { colors } = useTheme();
   const styles = createStyles(colors);
-  const filtered = mockDoctors.filter(d => d.name.toLowerCase().includes(search.toLowerCase()) || d.specialization.toLowerCase().includes(search.toLowerCase()));
+  
+  const doctors = useStore(state => state.doctors);
+  const filtered = doctors.filter(d => d.name.toLowerCase().includes(search.toLowerCase()) || d.specialization.toLowerCase().includes(search.toLowerCase()));
 
-  const renderDoctor = ({ item }: { item: typeof mockDoctors[0] }) => (
-    <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
+  const renderDoctor = ({ item }: { item: typeof doctors[0] }) => (
+    <TouchableOpacity onPress={() => navigation.navigate('DoctorDetail', { doctor: item })} style={styles.card} activeOpacity={0.7}>
       <View style={styles.avatar}><Text style={styles.avatarText}>{item.name.split(' ').slice(1).map(n => n[0]).join('')}</Text></View>
       <View style={styles.cardContent}>
         <View style={styles.cardTopRow}>
@@ -36,7 +38,7 @@ export default function DoctorsScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Doctors</Text>
-        <View style={{ width: 40 }} />
+        <TouchableOpacity onPress={() => navigation.navigate('AddDoctor')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search doctors..." /></View>
       <FlatList data={filtered} renderItem={renderDoctor} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />

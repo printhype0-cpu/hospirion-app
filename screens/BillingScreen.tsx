@@ -1,17 +1,19 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react';
-import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockBills } from '../lib/data';
+import { useStore } from '../lib/store';
 import Badge from '../components/Badge';
 
 export default function BillingScreen({ navigation }: { navigation: any }) {
   const { colors } = useTheme();
   const styles = createStyles(colors);
-  const totalRevenue = mockBills.reduce((sum, b) => sum + b.total, 0);
-  const paidAmount = mockBills.filter(b => b.status === 'paid').reduce((sum, b) => sum + b.total, 0);
-  const pendingAmount = mockBills.filter(b => b.status === 'pending' || b.status === 'overdue').reduce((sum, b) => sum + b.total, 0);
+  
+  const bills = useStore(state => state.bills);
+  const totalRevenue = bills.reduce((sum, b) => sum + b.total, 0);
+  const paidAmount = bills.filter(b => b.status === 'paid').reduce((sum, b) => sum + b.total, 0);
+  const pendingAmount = bills.filter(b => b.status === 'pending' || b.status === 'overdue').reduce((sum, b) => sum + b.total, 0);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -22,16 +24,16 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
     }
   };
 
-  const renderBill = ({ item }: { item: typeof mockBills[0] }) => {
+  const renderBill = ({ item }: { item: typeof bills[0] }) => {
     const badge = getStatusBadge(item.status);
     return (
-      <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => navigation.navigate('BillDetail', { bill: item })} style={styles.card} activeOpacity={0.7}>
         <View style={styles.cardTop}>
           <View><Text style={styles.billId}>{item.id}</Text><Text style={styles.patientName}>{item.patientName}</Text></View>
           <Badge text={badge.text} variant={badge.variant} />
         </View>
         <View style={styles.cardMiddle}><Text style={styles.dateText}>{item.date}</Text><Text style={styles.itemsCount}>{item.items.length} items</Text></View>
-        <View style={styles.cardBottom}><Text style={styles.totalLabel}>Total</Text><Text style={styles.totalAmount}>₹{item.total.toFixed(2)}</Text></View>
+        <View style={styles.cardBottom}><Text style={styles.totalLabel}>Total</Text><Text style={styles.totalAmount}>${item.total.toFixed(2)}</Text></View>
       </TouchableOpacity>
     );
   };
@@ -41,14 +43,14 @@ export default function BillingScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Billing</Text>
-        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'Adding invoices will be implemented shortly!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.summaryRow}>
-        <View style={styles.summaryCard}><Ionicons name="trending-up" size={20} color={colors.success} /><Text style={styles.summaryValue}>₹{totalRevenue.toFixed(0)}</Text><Text style={styles.summaryLabel}>Total</Text></View>
-        <View style={styles.summaryCard}><Ionicons name="checkmark-circle" size={20} color={colors.primary} /><Text style={styles.summaryValue}>₹{paidAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Collected</Text></View>
-        <View style={styles.summaryCard}><Ionicons name="time" size={20} color={colors.warning} /><Text style={styles.summaryValue}>₹{pendingAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Pending</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="trending-up" size={20} color={colors.success} /><Text style={styles.summaryValue}>${totalRevenue.toFixed(0)}</Text><Text style={styles.summaryLabel}>Total</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="checkmark-circle" size={20} color={colors.primary} /><Text style={styles.summaryValue}>${paidAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Collected</Text></View>
+        <View style={styles.summaryCard}><Ionicons name="time" size={20} color={colors.warning} /><Text style={styles.summaryValue}>${pendingAmount.toFixed(0)}</Text><Text style={styles.summaryLabel}>Pending</Text></View>
       </View>
-      <FlatList data={mockBills} renderItem={renderBill} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
+      <FlatList data={bills} renderItem={renderBill} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
     </SafeAreaView>
   );
 }

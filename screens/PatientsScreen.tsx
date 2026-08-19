@@ -1,9 +1,9 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import {  View, Text, StyleSheet, FlatList, TouchableOpacity , Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockPatients } from '../lib/data';
+import { useStore } from '../lib/store';
 import SearchBar from '../components/SearchBar';
 import Badge from '../components/Badge';
 
@@ -11,7 +11,8 @@ export default function PatientsScreen({ navigation }: { navigation: any }) {
   const [search, setSearch] = useState('');
   const { colors } = useTheme();
   const styles = createStyles(colors);
-  const filtered = mockPatients.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+  const patients = useStore(state => state.patients);
+  const filtered = patients.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -22,10 +23,10 @@ export default function PatientsScreen({ navigation }: { navigation: any }) {
     }
   };
 
-  const renderPatient = ({ item }: { item: typeof mockPatients[0] }) => {
+  const renderPatient = ({ item }: { item: typeof patients[0] }) => {
     const badge = getStatusBadge(item.status);
     return (
-      <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')} style={styles.card} activeOpacity={0.7}>
+      <TouchableOpacity onPress={() => navigation.navigate('PatientDetail', { patient: item })} style={styles.card} activeOpacity={0.7}>
         <View style={[styles.avatar, { backgroundColor: item.gender === 'female' ? colors.dangerBg : colors.primaryBg }]}>
           <Ionicons name={item.gender === 'female' ? 'woman' : 'man'} size={22} color={item.gender === 'female' ? '#DB2777' : colors.primary} />
         </View>
@@ -50,7 +51,7 @@ export default function PatientsScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Patients (EHR)</Text>
-        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="person-add" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AddPatient')}><Ionicons name="person-add" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search patients..." /></View>
       <FlatList data={filtered} renderItem={renderPatient} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />

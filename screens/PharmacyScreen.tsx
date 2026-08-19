@@ -1,9 +1,9 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, Shadows, BorderRadius, Spacing, FontSize, FontWeight } from '../lib/theme';
-import { mockPharmacy } from '../lib/data';
+import { useStore } from '../lib/store';
 import SearchBar from '../components/SearchBar';
 import Badge from '../components/Badge';
 
@@ -11,12 +11,14 @@ export default function PharmacyScreen({ navigation }: { navigation: any }) {
   const [search, setSearch] = useState('');
   const { colors } = useTheme();
   const styles = createStyles(colors);
-  const filtered = mockPharmacy.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase()));
+  
+  const pharmacyItems = useStore(state => state.pharmacyItems);
+  const filtered = pharmacyItems.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase()));
 
-  const renderItem = ({ item }: { item: typeof mockPharmacy[0] }) => {
+  const renderItem = ({ item }: { item: typeof pharmacyItems[0] }) => {
     const lowStock = item.stock < item.minStock;
     return (
-      <View style={styles.card}>
+      <TouchableOpacity onPress={() => navigation.navigate('PharmacyDetail', { item })} style={styles.card} activeOpacity={0.7}>
         <View style={styles.cardHeader}>
           <View style={styles.medIcon}><Ionicons name="medical" size={22} color={colors.secondary} /></View>
           <View style={styles.cardHeaderInfo}>
@@ -30,7 +32,7 @@ export default function PharmacyScreen({ navigation }: { navigation: any }) {
           <View style={styles.detailItem}><Text style={styles.detailLabel}>Price</Text><Text style={styles.detailValue}>₹{item.price.toFixed(2)}</Text></View>
         </View>
         {lowStock && <View style={styles.lowStockBanner}><Ionicons name="warning" size={14} color={colors.danger} /><Text style={styles.lowStockText}>Low Stock Alert</Text></View>}
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -39,7 +41,7 @@ export default function PharmacyScreen({ navigation }: { navigation: any }) {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}><Ionicons name="chevron-back" size={24} color={colors.text} /></TouchableOpacity>
         <Text style={styles.headerTitle}>Pharmacy</Text>
-        <TouchableOpacity onPress={() => Alert.alert('Coming Soon', 'This action will be fully functional in the next update!')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AddPharmacyItem')}><Ionicons name="add-circle" size={24} color={colors.primary} /></TouchableOpacity>
       </View>
       <View style={styles.searchSection}><SearchBar value={search} onChangeText={setSearch} placeholder="Search medicines..." /></View>
       <FlatList data={filtered} renderItem={renderItem} keyExtractor={item => item.id} contentContainerStyle={styles.list} showsVerticalScrollIndicator={false} />
